@@ -1,3 +1,10 @@
+# This paint created by "PyQt5 Creating Paint Application In 40 Minutes"
+# Link for video: https://www.youtube.com/watch?v=qEgyGyVA1ZQ
+# People whose code helped to correct errors:
+# https://github.com/NicolasG31
+# https://github.com/Khusmanda
+
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -193,14 +200,21 @@ class Window(QMainWindow):
         canvasPainter = QPainter(self)
         canvasPainter.drawImage(self.rect(), self.image, self.image.rect())
 
+    def resizeEvent(self, event):
+        self.image = self.image.scaled(self.width(), self.height())
+
     def openAction(self):
         filePath2, _ = QFileDialog.getOpenFileName(self, "Open Image", "", "PNG(*.png);;JPEG(*.jpg *.jpeg);; ALL Files(*.*)")
         if filePath2 == "":
             return
+        with open(filePath2, 'rb') as f: #open the file in binary mode for reading
+                content = f.read() # read the file        
 
-        self.image = QImage()
-        self.image.load(filePath2)
-
+        self.image.loadFromData(content) # load the data into the file
+        width = self.width() # get the width of the current QImage in your application
+        height = self.height()
+        self.image = self.image.scaled(width, height)
+        self.update()
 
 
     def save(self):
@@ -215,7 +229,7 @@ class Window(QMainWindow):
         self.update()
     
     def aboutAction(self):
-        QMessageBox.about(self, "About", "Paint in python with pyqt5. Thank Parwiz Forogh(https://www.youtube.com/@ParwizForogh) and NicolasG31(https://github.com/NicolasG31)")
+        QMessageBox.about(self, "About", "Paint in python with pyqt5. Thank ParwizForogh(https://www.youtube.com/@ParwizForogh), NicolasG31(https://github.com/NicolasG31), Khusmanda(https://github.com/Khusmanda)")
 
     def exitAction(self):
         sys.exit()

@@ -1,8 +1,8 @@
-# This paint created by "PyQt5 Creating Paint Application In 40 Minutes"
+# This paint based on "PyQt5 Creating Paint Application In 40 Minutes"
 # Link for video: https://www.youtube.com/watch?v=qEgyGyVA1ZQ
 # People whose code helped to correct errors:
-# https://github.com/NicolasG31
-# https://github.com/Khusmanda
+# https://github.com/NicolasG31/PyPaint
+# https://github.com/Khusmanda/Painting-Application
 
 
 from PyQt5.QtWidgets import *
@@ -11,16 +11,7 @@ from PyQt5.QtCore import *
 import sys
 
 
-
-
-
-
-
-
 class Window(QMainWindow):
-
-
-        
 
 
 
@@ -40,9 +31,11 @@ class Window(QMainWindow):
 
         self.image = QImage(self.size(), QImage.Format_RGB32)
         self.image.fill(Qt.white)
+        self.showFullScreen()
 
         self.drawing = False
         self.brushSize = 2
+
         self.brushColor = QColor(0, 0, 0)
         self.brushStyle= Qt.SolidLine
         self.brushCap = Qt.RoundCap
@@ -55,20 +48,24 @@ class Window(QMainWindow):
         brushColor = mainMenu.addMenu("Brush Color")
         brushstyle = mainMenu.addMenu("Brush Style")
         brushcap = mainMenu.addMenu("Brush Cap")
+
+        fillAction = QAction(QIcon("icons/Fill.png"), "Fill", self)
+        fillAction.setShortcut("Ctrl+Q")
+        fileMenu.addAction(fillAction)
+        fillAction.triggered.connect(self.fillAction)
         
         openAction = QAction(QIcon("icons/Open.png"), "Open", self)
-        openAction.setShortcut("Ctrl+M")
+        openAction.setShortcut("Ctrl+W")
         fileMenu.addAction(openAction)
         openAction.triggered.connect(self.openAction)
 
-
         saveAction = QAction(QIcon("icons/save.png"), "Save", self)
-        saveAction.setShortcut("Ctrl+S")
+        saveAction.setShortcut("Ctrl+E")
         fileMenu.addAction(saveAction)
         saveAction.triggered.connect(self.save)
 
         clearAction = QAction(QIcon("icons/clear.png"), "Clear", self)
-        clearAction.setShortcut("Ctrl+C")
+        clearAction.setShortcut("Ctrl+R")
         fileMenu.addAction(clearAction)
         clearAction.triggered.connect(self.clear)
 
@@ -82,47 +79,52 @@ class Window(QMainWindow):
         exitAction.triggered.connect(self.exitAction)
 
         onepxAction = QAction(QIcon("icons/onepx.png"), "1px", self)
-        onepxAction.setShortcut("Ctrl+O")
+        onepxAction.setShortcut("Ctrl+T")
         brushMenu.addAction(onepxAction)
         onepxAction.triggered.connect(self.onePx)
 
         threepxAction = QAction(QIcon("icons/threepx.png"), "3px", self)
-        threepxAction.setShortcut("Ctrl+T")
+        threepxAction.setShortcut("Ctrl+Y")
         brushMenu.addAction(threepxAction)
         threepxAction.triggered.connect(self.threePx)
 
         fivepxAction = QAction(QIcon("icons/fivepx.png"), "5px", self)
-        fivepxAction.setShortcut("Ctrl+F")
+        fivepxAction.setShortcut("Ctrl+U")
         brushMenu.addAction(fivepxAction)
         fivepxAction.triggered.connect(self.fivePx)
 
         sevenpxAction = QAction(QIcon("icons/sevenpx.png"), "7px", self)
-        sevenpxAction.setShortcut("Ctrl+S")
+        sevenpxAction.setShortcut("Ctrl+I")
         brushMenu.addAction(sevenpxAction)
         sevenpxAction.triggered.connect(self.sevenPx)
 
         ninepxAction = QAction(QIcon("icons/ninepx.png"), "9px", self)
-        ninepxAction.setShortcut("Ctrl+N")
+        ninepxAction.setShortcut("Ctrl+O")
         brushMenu.addAction(ninepxAction)
         ninepxAction.triggered.connect(self.ninePx)
 
         elevenpxAction = QAction(QIcon("icons/ninepx.png"), "11px", self)
-        elevenpxAction.setShortcut("Ctrl+E")
+        elevenpxAction.setShortcut("Ctrl+P")
         brushMenu.addAction(elevenpxAction)
         elevenpxAction.triggered.connect(self.elevenPx)
 
+        choosepxAction = QAction(QIcon("icons/Choosepx.png"), "Choose", self)
+        choosepxAction.setShortcut("Ctrl+A")
+        brushMenu.addAction(choosepxAction)
+        choosepxAction.triggered.connect(self.choosesizeAction)
+
         blackAction = QAction(QIcon("icons/black.png"), "Black", self)
-        blackAction.setShortcut("Ctrl+B")
+        blackAction.setShortcut("Ctrl+S")
         brushColor.addAction(blackAction)
         blackAction.triggered.connect(self.blackColor)
 
         whiteAction = QAction(QIcon("icons/white.png"), "White", self)
-        whiteAction.setShortcut("Ctrl+W")
+        whiteAction.setShortcut("Ctrl+D")
         brushColor.addAction(whiteAction)
         whiteAction.triggered.connect(self.whiteColor)
 
         redAction = QAction(QIcon("icons/red.png"), "Red", self)
-        redAction.setShortcut("Ctrl+R")
+        redAction.setShortcut("Ctrl+F")
         brushColor.addAction(redAction)
         redAction.triggered.connect(self.redColor)
 
@@ -132,49 +134,47 @@ class Window(QMainWindow):
         greenAction.triggered.connect(self.greenColor)
 
         yellowAction = QAction(QIcon("icons/yellow.png"), "Yellow", self)
-        yellowAction.setShortcut("Ctrl+Y")
+        yellowAction.setShortcut("Ctrl+H")
         brushColor.addAction(yellowAction)
         yellowAction.triggered.connect(self.yellowColor)
 
-
         rgbAction = QAction(QIcon("icons/Choose.png"), "Choose", self)
-        rgbAction.setShortcut("Ctrl+L")
+        rgbAction.setShortcut("Ctrl+J")
         brushColor.addAction(rgbAction)
         rgbAction.triggered.connect(self.rgbColor)
 
-
         eraseAction = QAction(QIcon("icons/Erase.png"), "Erase", self)
-        eraseAction.setShortcut("Ctrl+D")
+        eraseAction.setShortcut("Ctrl+K")
         brushColor.addAction(eraseAction)
         eraseAction.triggered.connect(self.erase)
 
         dashAction = QAction(QIcon("icons/Dash.png"), "Dash", self)
-        dashAction.setShortcut("Ctrl+Z")
+        dashAction.setShortcut("Ctrl+L")
         brushstyle.addAction(dashAction)
         dashAction.triggered.connect(self.dashAction)
 
         dotAction = QAction(QIcon("icons/Dot.png"), "Dot", self)
-        dotAction.setShortcut("Ctrl+X")
+        dotAction.setShortcut("Ctrl+Z")
         brushstyle.addAction(dotAction)
         dotAction.triggered.connect(self.dotAction)
         
         solidAction = QAction(QIcon("icons/Solid.png"), "Solid", self)
-        solidAction.setShortcut("Ctrl+N")
+        solidAction.setShortcut("Ctrl+X")
         brushstyle.addAction(solidAction)
         solidAction.triggered.connect(self.solidAction)
 
         squarecapAction = QAction(QIcon("icons/Square.png"), "Square", self)
-        squarecapAction.setShortcut("Ctrl+J")
+        squarecapAction.setShortcut("Ctrl+C")
         brushcap.addAction(squarecapAction)
         squarecapAction.triggered.connect(self.squareCapAction)
 
         flatcapAction = QAction(QIcon("icons/Flat.png"), "Flat", self)
-        flatcapAction.setShortcut("Ctrl+B")
+        flatcapAction.setShortcut("Ctrl+V")
         brushcap.addAction(flatcapAction)
         flatcapAction.triggered.connect(self.flatCapAction)
 
         circleCapAction = QAction(QIcon("icons/Circle.png"), "Circle", self)
-        circleCapAction.setShortcut("Ctrl+Q")
+        circleCapAction.setShortcut("Ctrl+B")
         brushcap.addAction(circleCapAction)
         circleCapAction.triggered.connect(self.circleCapAction)
 
@@ -203,19 +203,21 @@ class Window(QMainWindow):
     def resizeEvent(self, event):
         self.image = self.image.scaled(self.width(), self.height())
 
+    def fillAction(self):
+        self.image.fill(self.brushColor)
+
     def openAction(self):
         filePath2, _ = QFileDialog.getOpenFileName(self, "Open Image", "", "PNG(*.png);;JPEG(*.jpg *.jpeg);; ALL Files(*.*)")
         if filePath2 == "":
             return
-        with open(filePath2, 'rb') as f: #open the file in binary mode for reading
-                content = f.read() # read the file        
+        with open(filePath2, 'rb') as f: 
+                content = f.read()
 
-        self.image.loadFromData(content) # load the data into the file
-        width = self.width() # get the width of the current QImage in your application
+        self.image.loadFromData(content)
+        width = self.width() 
         height = self.height()
         self.image = self.image.scaled(width, height)
         self.update()
-
 
     def save(self):
         filePath, _ = QFileDialog.getSaveFileName(self, "Save Image", "", "PNG(*.png);;JPEG(*.jpg *.jpeg);; ALL Files(*.*)")
@@ -292,13 +294,16 @@ class Window(QMainWindow):
     def circleCapAction(self):
         self.brushCap = Qt.RoundCap
 
-
-
-    
-
-
-
-
+    def choosesizeAction(self):
+        choosesize, ok = QInputDialog.getInt(self, 'Choose', 'Write size brush:')
+        if ok and choosesize:
+            if choosesize > 2000:
+                QMessageBox.about(self, "Error", "Very big size!")
+            elif choosesize < 1:
+                QMessageBox.about(self, "Error", "Very small size!")
+            else:
+                print(choosesize)
+                self.brushSize = choosesize
 
 
 

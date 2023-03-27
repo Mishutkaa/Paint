@@ -1,4 +1,4 @@
-# This paint based on "PyQt5 Creating Paint Application In 40 Minutes"
+# This paint based on video "PyQt5 Creating Paint Application In 40 Minutes"
 # Link for video: https://www.youtube.com/watch?v=qEgyGyVA1ZQ
 # People whose code helped to correct errors:
 # https://github.com/NicolasG31/PyPaint
@@ -9,7 +9,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import sys
-
 
 class Window(QMainWindow):
 
@@ -23,9 +22,10 @@ class Window(QMainWindow):
         width = 800
         height = 600
 
-        icon = "icons/pain.png"
+        icon = "icons/paint.png"
 
-        self.setWindowTitle("Paint ")
+
+        self.setWindowTitle("PyPaint")
         self.setGeometry(top, left, width, height)
         self.setWindowIcon(QIcon(icon))
 
@@ -49,131 +49,131 @@ class Window(QMainWindow):
         brushstyle = mainMenu.addMenu("Brush Style")
         brushcap = mainMenu.addMenu("Brush Cap")
 
-        fillAction = QAction(QIcon("icons/Fill.png"), "Fill", self)
+        fillAction = QAction(QIcon("icons/icons_file/Fill.png"), "Fill", self)
         fillAction.setShortcut("Ctrl+Q")
         fileMenu.addAction(fillAction)
         fillAction.triggered.connect(self.fillAction)
         
-        openAction = QAction(QIcon("icons/Open.png"), "Open", self)
+        openAction = QAction(QIcon("icons/icons_file/Open.png"), "Open", self)
         openAction.setShortcut("Ctrl+W")
         fileMenu.addAction(openAction)
         openAction.triggered.connect(self.openAction)
 
-        saveAction = QAction(QIcon("icons/save.png"), "Save", self)
+        saveAction = QAction(QIcon("icons/icons_file/save.png"), "Save", self)
         saveAction.setShortcut("Ctrl+E")
         fileMenu.addAction(saveAction)
         saveAction.triggered.connect(self.save)
 
-        clearAction = QAction(QIcon("icons/clear.png"), "Clear", self)
+        clearAction = QAction(QIcon("icons/icons_file/clear.png"), "Clear", self)
         clearAction.setShortcut("Ctrl+R")
         fileMenu.addAction(clearAction)
         clearAction.triggered.connect(self.clear)
 
-        aboutAction = QAction(QIcon("icons/About.png"), "About", self)
+        aboutAction = QAction(QIcon("icons/icons_file/About.png"), "About", self)
         fileMenu.addAction(aboutAction)
         aboutAction.triggered.connect(self.aboutAction)
 
-        exitAction  = QAction(QIcon("icons/Exit.png"), "Exit", self)
+        exitAction  = QAction(QIcon("icons/icons_file/Exit.png"), "Exit", self)
         exitAction.setShortcut("ALT+F4")
         fileMenu.addAction(exitAction)
         exitAction.triggered.connect(self.exitAction)
 
-        onepxAction = QAction(QIcon("icons/onepx.png"), "1px", self)
+        onepxAction = QAction(QIcon("icons/icons_px/onepx.png"), "1px", self)
         onepxAction.setShortcut("Ctrl+T")
         brushMenu.addAction(onepxAction)
         onepxAction.triggered.connect(self.onePx)
 
-        threepxAction = QAction(QIcon("icons/threepx.png"), "3px", self)
+        threepxAction = QAction(QIcon("icons/icons_px/threepx.png"), "3px", self)
         threepxAction.setShortcut("Ctrl+Y")
         brushMenu.addAction(threepxAction)
         threepxAction.triggered.connect(self.threePx)
 
-        fivepxAction = QAction(QIcon("icons/fivepx.png"), "5px", self)
+        fivepxAction = QAction(QIcon("icons/icons_px/fivepx.png"), "5px", self)
         fivepxAction.setShortcut("Ctrl+U")
         brushMenu.addAction(fivepxAction)
         fivepxAction.triggered.connect(self.fivePx)
 
-        sevenpxAction = QAction(QIcon("icons/sevenpx.png"), "7px", self)
+        sevenpxAction = QAction(QIcon("icons/icons_px/sevenpx.png"), "7px", self)
         sevenpxAction.setShortcut("Ctrl+I")
         brushMenu.addAction(sevenpxAction)
         sevenpxAction.triggered.connect(self.sevenPx)
 
-        ninepxAction = QAction(QIcon("icons/ninepx.png"), "9px", self)
+        ninepxAction = QAction(QIcon("icons/icons_px/ninepx.png"), "9px", self)
         ninepxAction.setShortcut("Ctrl+O")
         brushMenu.addAction(ninepxAction)
         ninepxAction.triggered.connect(self.ninePx)
 
-        elevenpxAction = QAction(QIcon("icons/ninepx.png"), "11px", self)
+        elevenpxAction = QAction(QIcon("icons/icons_px/elevenpx.png"), "11px", self)
         elevenpxAction.setShortcut("Ctrl+P")
         brushMenu.addAction(elevenpxAction)
         elevenpxAction.triggered.connect(self.elevenPx)
 
-        choosepxAction = QAction(QIcon("icons/Choosepx.png"), "Choose", self)
+        choosepxAction = QAction(QIcon("icons/icons_px/Choosepx.png"), "Choose", self)
         choosepxAction.setShortcut("Ctrl+A")
         brushMenu.addAction(choosepxAction)
         choosepxAction.triggered.connect(self.choosesizeAction)
 
-        blackAction = QAction(QIcon("icons/black.png"), "Black", self)
+        blackAction = QAction(QIcon("icons/icons_color/black.png"), "Black", self)
         blackAction.setShortcut("Ctrl+S")
         brushColor.addAction(blackAction)
         blackAction.triggered.connect(self.blackColor)
 
-        whiteAction = QAction(QIcon("icons/white.png"), "White", self)
+        whiteAction = QAction(QIcon("icons/icons_color/white.png"), "White", self)
         whiteAction.setShortcut("Ctrl+D")
         brushColor.addAction(whiteAction)
         whiteAction.triggered.connect(self.whiteColor)
 
-        redAction = QAction(QIcon("icons/red.png"), "Red", self)
+        redAction = QAction(QIcon("icons/icons_color/red.png"), "Red", self)
         redAction.setShortcut("Ctrl+F")
         brushColor.addAction(redAction)
         redAction.triggered.connect(self.redColor)
 
-        greenAction = QAction(QIcon("icons/green.png"), "Green", self)
+        greenAction = QAction(QIcon("icons/icons_color/green.png"), "Green", self)
         greenAction.setShortcut("Ctrl+G")
         brushColor.addAction(greenAction)
         greenAction.triggered.connect(self.greenColor)
 
-        yellowAction = QAction(QIcon("icons/yellow.png"), "Yellow", self)
+        yellowAction = QAction(QIcon("icons/icons_color/yellow.png"), "Yellow", self)
         yellowAction.setShortcut("Ctrl+H")
         brushColor.addAction(yellowAction)
         yellowAction.triggered.connect(self.yellowColor)
 
-        rgbAction = QAction(QIcon("icons/Choose.png"), "Choose", self)
+        rgbAction = QAction(QIcon("icons/icons_color/Choosecolor.png"), "Choose", self)
         rgbAction.setShortcut("Ctrl+J")
         brushColor.addAction(rgbAction)
         rgbAction.triggered.connect(self.rgbColor)
 
-        eraseAction = QAction(QIcon("icons/Erase.png"), "Erase", self)
+        eraseAction = QAction(QIcon("icons/icons_color/Erase.png"), "Erase", self)
         eraseAction.setShortcut("Ctrl+K")
         brushColor.addAction(eraseAction)
         eraseAction.triggered.connect(self.erase)
 
-        dashAction = QAction(QIcon("icons/Dash.png"), "Dash", self)
+        dashAction = QAction(QIcon("icons/icons_style/Dash.png"), "Dash", self)
         dashAction.setShortcut("Ctrl+L")
         brushstyle.addAction(dashAction)
         dashAction.triggered.connect(self.dashAction)
 
-        dotAction = QAction(QIcon("icons/Dot.png"), "Dot", self)
+        dotAction = QAction(QIcon("icons/icons_style/Dot.png"), "Dot", self)
         dotAction.setShortcut("Ctrl+Z")
         brushstyle.addAction(dotAction)
         dotAction.triggered.connect(self.dotAction)
         
-        solidAction = QAction(QIcon("icons/Solid.png"), "Solid", self)
+        solidAction = QAction(QIcon("icons/icons_style/Solid.png"), "Solid", self)
         solidAction.setShortcut("Ctrl+X")
         brushstyle.addAction(solidAction)
         solidAction.triggered.connect(self.solidAction)
 
-        squarecapAction = QAction(QIcon("icons/Square.png"), "Square", self)
+        squarecapAction = QAction(QIcon("icons/icons_cap/Square.png"), "Square", self)
         squarecapAction.setShortcut("Ctrl+C")
         brushcap.addAction(squarecapAction)
         squarecapAction.triggered.connect(self.squareCapAction)
 
-        flatcapAction = QAction(QIcon("icons/Flat.png"), "Flat", self)
+        flatcapAction = QAction(QIcon("icons/icons_cap/flat.png"), "Flat", self)
         flatcapAction.setShortcut("Ctrl+V")
         brushcap.addAction(flatcapAction)
         flatcapAction.triggered.connect(self.flatCapAction)
 
-        circleCapAction = QAction(QIcon("icons/Circle.png"), "Circle", self)
+        circleCapAction = QAction(QIcon("icons/icons_cap/Circle.png"), "Circle", self)
         circleCapAction.setShortcut("Ctrl+B")
         brushcap.addAction(circleCapAction)
         circleCapAction.triggered.connect(self.circleCapAction)
@@ -231,10 +231,14 @@ class Window(QMainWindow):
         self.update()
     
     def aboutAction(self):
-        QMessageBox.about(self, "About", "Paint in python with pyqt5. Thank ParwizForogh(https://www.youtube.com/@ParwizForogh), NicolasG31(https://github.com/NicolasG31), Khusmanda(https://github.com/Khusmanda)")
+        QMessageBox.about(self, "About", 
+        "<p>Paint in python with pyqt5.</p>"
+        "<p>Thank ParwizForogh(https://www.youtube.com/@ParwizForogh)</p>"
+        "<p>Thank NicolasG31(https://github.com/NicolasG31)</p>"
+        "<p> Thank Khusmanda(https://github.com/Khusmanda)</p>")
 
     def exitAction(self):
-        sys.exit()
+        QApplication.exit()
 
     def onePx(self):
         self.brushSize = 1

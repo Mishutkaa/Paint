@@ -17,10 +17,10 @@ class Window(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        top = 400
-        left = 400
-        width = 800
-        height = 600
+        top = 1
+        left = 1
+        width = 1
+        height = 1
 
         icon = "icons/paint.png"
 
@@ -74,7 +74,7 @@ class Window(QMainWindow):
         aboutAction.triggered.connect(self.aboutAction)
 
         exitAction  = QAction(QIcon("icons/icons_file/Exit.png"), "Exit", self)
-        exitAction.setShortcut("ALT+F4")
+        exitAction.setShortcut("F4")
         fileMenu.addAction(exitAction)
         exitAction.triggered.connect(self.exitAction)
 
@@ -179,6 +179,9 @@ class Window(QMainWindow):
         circleCapAction.triggered.connect(self.circleCapAction)
 
 
+
+
+
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.drawing = True
@@ -235,10 +238,21 @@ class Window(QMainWindow):
         "<p>Paint in python with pyqt5.</p>"
         "<p>Thank ParwizForogh(https://www.youtube.com/@ParwizForogh)</p>"
         "<p>Thank NicolasG31(https://github.com/NicolasG31)</p>"
-        "<p> Thank Khusmanda(https://github.com/Khusmanda)</p>")
+        "<p>Thank Khusmanda(https://github.com/Khusmanda)</p>")
 
     def exitAction(self):
-        QApplication.exit()
+            text = '''Are you sure you want to Quit?\nAny unsaved work will be lost.'''
+            reply = QMessageBox.question(
+                self, 'Warning!', text,
+                QMessageBox.Save | QMessageBox.Cancel | QMessageBox.Close
+            )
+
+            if reply == QMessageBox.Close:
+                QApplication.exit()
+
+            elif reply == QMessageBox.Save:
+                self.save()
+
 
     def onePx(self):
         self.brushSize = 1
@@ -302,12 +316,15 @@ class Window(QMainWindow):
         choosesize, ok = QInputDialog.getInt(self, 'Choose', 'Write size brush:')
         if ok and choosesize:
             if choosesize > 2000:
-                QMessageBox.about(self, "Error", "Very big size!")
+                QMessageBox.critical(self, "Error", "Very big size!")
             elif choosesize < 1:
-                QMessageBox.about(self, "Error", "Very small size!")
+                QMessageBox.critical(self, "Error", "Very small size!")
             else:
                 print(choosesize)
                 self.brushSize = choosesize
+
+
+
 
 
 
